@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -7,13 +8,13 @@ const firebaseConfig = {
     projectId: import.meta.env.FIREBASE_PROJECT_ID,
     storageBucket: import.meta.env.FIREBASE_STORAGE_BUCKET,
     messagingSenderId: import.meta.env.FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.FIREBASE_APP_ID
+    appId: import.meta.env.FIREBASE_APP_ID,
+    measurementId: import.meta.env.FIREBASE_MEASUREMENT_ID
   };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Initialize Firebase Authentication and get a reference to the service
+const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
 export { auth };
