@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+import './styles.css';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Landing from './components/Landing';
