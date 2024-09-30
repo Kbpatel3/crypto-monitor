@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { auth } from '../firebase'; // Import your Firebase auth instance
-import { onAuthStateChanged } from '../firebase/auth';
 import { Navigate } from 'react-router-dom';
+import { getAuth, onAuthStateChanged } from '../firebase/auth';
 
 const ProtectedRoute = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
       if (user) {
         setUser(user);
       } else {
