@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
-import { getAuth } from 'firebase/auth';
+import { getAuth, setPersistence, browserSessionPersistence } from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -20,5 +20,14 @@ const analytics = getAnalytics(app);
 
 // Initialize Firebase Auth
 const auth = getAuth(app);
+
+// Set session persistence
+setPersistence(auth, browserSessionPersistence)
+  .then(() => {
+    console.log("Session persistence set successfully!");
+  })
+  .catch((error) => {
+    console.error("Error setting session persistence: ", error);
+  });
 
 export { app, analytics, auth };
