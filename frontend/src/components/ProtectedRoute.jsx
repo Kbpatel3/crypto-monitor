@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { getAuth, onAuthStateChanged } from '../firebase/auth';
+import { auth } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const ProtectedRoute = ({ children }) => {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(user);
+        setIsAuthenticated(true);
       } else {
-        setUser(null);
+        setIsAuthenticated(false);
       }
       setLoading(false); // Stop loading once the auth state is known
     });
@@ -25,7 +26,7 @@ const ProtectedRoute = ({ children }) => {
   }
 
   // If no user, redirect to login page
-  if (!user) {
+  if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
 
